@@ -499,7 +499,8 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                                         AddEditEmployeeScreen(employee: employee),
                                   ),
                                 );
-                                if (result == true && mounted) {
+                                if (!mounted) return;
+                                if (result == true) {
                                   SnackbarHelper.showSuccess(context,
                                       'Employee updated successfully!');
                                 }
@@ -534,7 +535,8 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                                       AddEditEmployeeScreen(employee: employee),
                                 ),
                               );
-                              if (result == true && mounted) {
+                              if (!mounted) return;
+                              if (result == true) {
                                 SnackbarHelper.showSuccess(
                                     context, 'Employee updated successfully!');
                               }

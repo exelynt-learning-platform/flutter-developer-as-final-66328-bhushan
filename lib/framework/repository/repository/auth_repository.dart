@@ -15,12 +15,15 @@ class AuthRepository implements IAuthRepository {
         _googleSignIn = googleSignIn ?? GoogleSignIn();
 
   /// Stream of auth state changes
+  @override
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
   /// Current user
+  @override
   User? get currentUser => _auth.currentUser;
 
   /// Sign in with email and password
+  @override
   Future<UserCredential> signInWithEmail(String email, String password) async {
     try {
       return await _auth.signInWithEmailAndPassword(
@@ -33,6 +36,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   /// Register with email and password
+  @override
   Future<UserCredential> registerWithEmail(
       String email, String password, String displayName) async {
     try {
@@ -48,13 +52,11 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
-  /// Google Sign-In — returns null (no credential) when the user cancels;
+  /// Google Sign-In — returns null when the user cancels;
   /// throws only on genuine FirebaseAuthException errors.
+  @override
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      // On web, google_sign_in_web returns an access_token but idToken is
-      // often null, which breaks GoogleAuthProvider.credential(). Using
-      // signInWithPopup directly is the recommended approach for web.
       if (kIsWeb) {
         final googleProvider = GoogleAuthProvider();
         googleProvider.addScope('email');
@@ -62,9 +64,7 @@ class AuthRepository implements IAuthRepository {
         return await _auth.signInWithPopup(googleProvider);
       }
 
-      // Mobile (Android / iOS)
       final googleUser = await _googleSignIn.signIn();
-      // User dismissed the chooser — treat as a silent no-op, not an error.
       if (googleUser == null) return null;
 
       final googleAuth = await googleUser.authentication;
@@ -79,6 +79,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   /// Forgot password
+  @override
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email.trim());
@@ -88,6 +89,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   /// Sign out
+  @override
   Future<void> signOut() async {
     await Future.wait([
       _auth.signOut(),
@@ -114,9 +116,11 @@ class AuthRepository implements IAuthRepository {
       case 'network-request-failed':
         return Exception('Network error. Please check your connection.');
       case 'invalid-credential':
-        return Exception('Invalid credentials. Please check your email and password.');
+        return Exception(
+            'Invalid credentials. Please check your email and password.');
       default:
-        return Exception(e.message ?? 'Authentication failed. Please try again.');
+        return Exception(
+            e.message ?? 'Authentication failed. Please try again.');
     }
   }
 }

@@ -12,6 +12,7 @@ class CountryRepository implements ICountryRepository {
       : _dioHelper = dioHelper ?? DioHelper();
 
   /// Get all countries with their states
+  @override
   Future<List<CountryModel>> getAllCountries() async {
     final response = await _dioHelper.get(kCountryEndpoint);
     final jsonStr = jsonEncode(response);

@@ -12,6 +12,7 @@ class EmployeeRepository implements IEmployeeRepository {
       : _dioHelper = dioHelper ?? DioHelper();
 
   /// Get all employees
+  @override
   Future<List<EmployeeModel>> getAllEmployees() async {
     final response = await _dioHelper.get(kEmployeeEndpoint);
     final jsonStr = jsonEncode(response);
@@ -19,6 +20,7 @@ class EmployeeRepository implements IEmployeeRepository {
   }
 
   /// Get employee by ID
+  @override
   Future<EmployeeModel> getEmployeeById(String id) async {
     final response = await _dioHelper.get('$kEmployeeEndpoint/$id');
     final jsonStr = jsonEncode(response);
@@ -26,14 +28,18 @@ class EmployeeRepository implements IEmployeeRepository {
   }
 
   /// Create a new employee
+  @override
   Future<EmployeeModel> createEmployee(EmployeeModel employee) async {
-    final response = await _dioHelper.post(kEmployeeEndpoint, employee.toJson());
+    final response =
+        await _dioHelper.post(kEmployeeEndpoint, employee.toJson());
     final jsonStr = jsonEncode(response);
     return employeeFromJson(jsonStr);
   }
 
   /// Update an existing employee
-  Future<EmployeeModel> updateEmployee(String id, EmployeeModel employee) async {
+  @override
+  Future<EmployeeModel> updateEmployee(
+      String id, EmployeeModel employee) async {
     final response =
         await _dioHelper.put('$kEmployeeEndpoint/$id', employee.toJson());
     final jsonStr = jsonEncode(response);
@@ -41,6 +47,7 @@ class EmployeeRepository implements IEmployeeRepository {
   }
 
   /// Delete an employee
+  @override
   Future<void> deleteEmployee(String id) async {
     await _dioHelper.delete('$kEmployeeEndpoint/$id');
   }
