@@ -46,8 +46,9 @@ app.*.map.json
 # Local Android properties (contains machine-specific SDK path)
 android/local.properties
 
-# Firebase — google-services.json contains API keys, keep out of public repos
-android/app/google-services.json
+# Firebase — google-services.json contains API keys
+# Included in this repo so the reviewer can build without setup
+# android/app/google-services.json
 
 # iOS build artifacts
 ios/Flutter/Flutter.framework
