@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../framework/repository/model/employee_model/employee_model.dart';
+import '../../features/employees/domain/entities/employee.dart';
 
 /// Reusable employee list card
 class EmployeeCard extends StatelessWidget {
-  final EmployeeModel employee;
+  final Employee employee;
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -31,14 +31,15 @@ class EmployeeCard extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(16),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 12, vertical: 8),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Avatar
                 CircleAvatar(
                   radius: 26,
-                  backgroundColor: colorScheme.primary.withValues(alpha: 0.15),
+                  backgroundColor:
+                      colorScheme.primary.withValues(alpha: 0.15),
                   child: Text(
                     initials,
                     style: TextStyle(
@@ -49,8 +50,6 @@ class EmployeeCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 14),
-
-                // Info
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +62,8 @@ class EmployeeCard extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall
-                                  ?.copyWith(fontWeight: FontWeight.w700),
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.w700),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -73,8 +73,10 @@ class EmployeeCard extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8, vertical: 2),
                               decoration: BoxDecoration(
-                                color: colorScheme.primary.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(20),
+                                color: colorScheme.primary
+                                    .withValues(alpha: 0.1),
+                                borderRadius:
+                                    BorderRadius.circular(20),
                               ),
                               child: Text(
                                 '#${employee.id}',
@@ -88,54 +90,50 @@ class EmployeeCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Icon(Icons.email_outlined,
-                              size: 13,
-                              color: colorScheme.onSurface.withValues(alpha: 0.5)),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              employee.email,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: colorScheme.onSurface
-                                          .withValues(alpha: 0.6)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                      Row(children: [
+                        Icon(Icons.email_outlined,
+                            size: 13,
+                            color: colorScheme.onSurface
+                                .withValues(alpha: 0.5)),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            employee.email,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    color: colorScheme.onSurface
+                                        .withValues(alpha: 0.6)),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
-                      ),
+                        ),
+                      ]),
                       const SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Icon(Icons.location_on_outlined,
-                              size: 13,
-                              color: colorScheme.onSurface.withValues(alpha: 0.5)),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              '${employee.district}, ${employee.state}, ${employee.country}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      color: colorScheme.onSurface
-                                          .withValues(alpha: 0.6)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                      Row(children: [
+                        Icon(Icons.location_on_outlined,
+                            size: 13,
+                            color: colorScheme.onSurface
+                                .withValues(alpha: 0.5)),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            '${employee.district}, ${employee.state}, ${employee.country}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    color: colorScheme.onSurface
+                                        .withValues(alpha: 0.6)),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
-                      ),
+                        ),
+                      ]),
                     ],
                   ),
                 ),
-
-                // Actions
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +148,8 @@ class EmployeeCard extends StatelessWidget {
                             onTap: onEdit,
                             borderRadius: BorderRadius.circular(16),
                             child: Icon(Icons.edit_outlined,
-                                color: colorScheme.primary, size: 18),
+                                color: colorScheme.primary,
+                                size: 18),
                           ),
                         ),
                       ),
@@ -166,7 +165,8 @@ class EmployeeCard extends StatelessWidget {
                             onTap: onDelete,
                             borderRadius: BorderRadius.circular(16),
                             child: Icon(Icons.delete_outline,
-                                color: colorScheme.error, size: 18),
+                                color: colorScheme.error,
+                                size: 18),
                           ),
                         ),
                       ),

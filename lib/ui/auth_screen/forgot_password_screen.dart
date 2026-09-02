@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../framework/providers/provider/auth_provider.dart';
-import '../../framework/data/status_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../features/auth/presentation/bloc/auth_cubit.dart';
+import '../../features/auth/presentation/bloc/auth_state.dart';
 import '../helper/custom_text_field.dart';
 import '../helper/snackbar_helper.dart';
 
-class ForgotPasswordScreen extends ConsumerStatefulWidget {
+class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  ConsumerState<ForgotPasswordScreen> createState() =>
+  State<ForgotPasswordScreen> createState() =>
       _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
+class _ForgotPasswordScreenState
+    extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   bool _emailSent = false;
@@ -24,51 +26,50 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     super.dispose();
   }
 
-  Future<void> _sendResetEmail() async {
+  void _send() {
     if (!_formKey.currentState!.validate()) return;
-
-    final success = await ref
-        .read(authProvider)
+    context
+        .read<AuthCubit>()
         .sendPasswordResetEmail(_emailController.text);
-
-    if (!mounted) return;
-    if (success) {
-      setState(() => _emailSent = true);
-    } else {
-      final error =
-          ref.read(authProvider).errorMessage ?? 'Failed to send email';
-      SnackbarHelper.showError(context, error);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isLoading =
-        ref.watch(authProvider).status == StatusEnum.loading;
-
-    return Scaffold(
-      appBar: AppBar(title: const Text('Forgot Password')),
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Centred card layout on tablets/web (≥600 dp wide)
-            final isWide = constraints.maxWidth >= 600;
-            final horizontalPadding =
-                isWide ? (constraints.maxWidth - 520) / 2 : 24.0;
-            return SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
-                  horizontal: horizontalPadding, vertical: 32),
-              child: _emailSent
-                  ? _buildSuccessView()
-                  : _buildFormView(isLoading),
-            );
-          },
-        ),
-      ),
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is Unauthenticated && !_emailSent) {
+          // sendPasswordResetEmail emits Unauthenticated on success
+          setState(() => _emailSent = true);
+        } else if (state is AuthError) {
+          SnackbarHelper.showError(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is AuthLoading;
+        return Scaffold(
+          appBar: AppBar(title: const Text('Forgot Password')),
+          body: SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isWide = constraints.maxWidth >= 600;
+                final hPad =
+                    isWide ? (constraints.maxWidth - 520) / 2 : 24.0;
+                return SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: hPad, vertical: 32),
+                  child: _emailSent
+                      ? _buildSuccess()
+                      : _buildForm(isLoading),
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildFormView(bool isLoading) {
+  Widget _buildForm(bool isLoading) {
     return Form(
       key: _formKey,
       child: Column(
@@ -87,33 +88,30 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                       .withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Icon(
-                  Icons.lock_reset_rounded,
-                  size: 44,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                child: Icon(Icons.lock_reset_rounded,
+                    size: 44,
+                    color:
+                        Theme.of(context).colorScheme.primary),
               ),
             ),
           ),
           const SizedBox(height: 24),
           Center(
-            child: Text(
-              'Reset Password',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            child: Text('Reset Password',
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 8),
           Center(
             child: Text(
-              "Enter your email address and we'll send you a link to reset your password.",
+              "Enter your email and we'll send a reset link.",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.6),
-                  ),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.6)),
               textAlign: TextAlign.center,
             ),
           ),
@@ -125,7 +123,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             prefixIcon: Icons.email_outlined,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.done,
-            onFieldSubmitted: (_) => _sendResetEmail(),
+            onFieldSubmitted: (_) => _send(),
             validator: (val) {
               if (val == null || val.trim().isEmpty) {
                 return 'Email is required';
@@ -142,15 +140,13 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             button: true,
             label: 'Send Reset Link',
             child: ElevatedButton(
-              onPressed: isLoading ? null : _sendResetEmail,
+              onPressed: isLoading ? null : _send,
               child: isLoading
                   ? const SizedBox(
                       height: 22,
                       width: 22,
                       child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2.5,
-                      ),
+                          color: Colors.white, strokeWidth: 2.5),
                     )
                   : const Text('Send Reset Link'),
             ),
@@ -160,7 +156,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     );
   }
 
-  Widget _buildSuccessView() {
+  Widget _buildSuccess() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -171,21 +167,19 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
               size: 80, color: Colors.green),
         ),
         const SizedBox(height: 24),
-        Text(
-          'Email Sent!',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-        ),
+        Text('Email Sent!',
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall
+                ?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Text(
-          'Password reset instructions have been sent to\n${_emailController.text}',
+          'Password reset instructions sent to\n${_emailController.text}',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSurface
-                    .withValues(alpha: 0.6),
-              ),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.6)),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 32),
