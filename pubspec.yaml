@@ -1,7 +1,6 @@
 name: employee_management_application_flutter_assessment
-description: "Employee Management Application - Flutter Assessment"
+description: "A production-level responsive Employee Management Application for Exelynt."
 publish_to: 'none'
-
 version: 1.0.0+1
 
 environment:
@@ -10,29 +9,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
 
-  # networking
-  dio: ^5.9.0
-
-  # state management
+  # State Management
   flutter_riverpod: ^2.6.1
   riverpod: ^2.6.1
 
-  # firebase
-  firebase_core: 3.6.0
-  firebase_auth: 5.3.1
-  google_sign_in: 6.2.1
+  # Networking
+  dio: ^5.9.0
 
-  # local storage
+  # Firebase / Auth
+  firebase_core: ^3.13.1
+  firebase_auth: ^5.5.1
+  google_sign_in: ^6.2.2
+
+  # Persistence
   shared_preferences: ^2.5.3
 
-  # image loading
+  # UI
   cached_network_image: ^3.4.1
-
-  # ui
   shimmer: ^3.0.0
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
