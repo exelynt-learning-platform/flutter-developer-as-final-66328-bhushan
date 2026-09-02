@@ -47,11 +47,13 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
-  /// Google Sign-In
-  Future<UserCredential> signInWithGoogle() async {
+  /// Google Sign-In — returns null (no credential) when the user cancels;
+  /// throws only on genuine FirebaseAuthException errors.
+  Future<UserCredential?> signInWithGoogle() async {
     try {
       final googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) throw Exception('Google Sign-In was cancelled.');
+      // User dismissed the chooser — treat as a silent no-op, not an error.
+      if (googleUser == null) return null;
 
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(

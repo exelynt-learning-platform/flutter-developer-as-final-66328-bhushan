@@ -9,7 +9,7 @@ abstract class IAuthRepository {
   Future<UserCredential> signInWithEmail(String email, String password);
   Future<UserCredential> registerWithEmail(
       String email, String password, String displayName);
-  Future<UserCredential> signInWithGoogle();
+  Future<UserCredential?> signInWithGoogle();
   Future<void> sendPasswordResetEmail(String email);
   Future<void> signOut();
 }

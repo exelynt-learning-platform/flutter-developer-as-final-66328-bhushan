@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../framwork/data/status_enum.dart';
-import '../../framwork/providers/provider/country_provider.dart';
-import '../../framwork/repository/model/country_model/country_model.dart';
+import '../../framework/data/status_enum.dart';
+import '../../framework/providers/provider/country_provider.dart';
+import '../../framework/repository/model/country_model/country_model.dart';
 
 class CountryListScreen extends ConsumerStatefulWidget {
   const CountryListScreen({super.key});

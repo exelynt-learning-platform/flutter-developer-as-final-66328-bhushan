@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
-import 'framwork/providers/local/preferences_helper.dart';
-import 'framwork/providers/provider/theme_provider.dart';
-import 'framwork/utils/app_theme.dart';
+import 'framework/providers/local/preferences_helper.dart';
+import 'framework/providers/provider/theme_provider.dart';
+import 'framework/utils/app_theme.dart';
 import 'ui/splash_screen/splash_screen.dart';
 
 void main() async {
@@ -18,8 +18,13 @@ void main() async {
   await PreferencesHelper.init();
 
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    ProviderScope(
+      // Read initial theme before the first frame so MyApp never calls
+      // ThemeNotifier.init() on every rebuild.
+      overrides: [
+        themeProvider.overrideWith((_) => ThemeNotifier()..init()),
+      ],
+      child: const MyApp(),
     ),
   );
 }
@@ -30,10 +35,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeNotifier = ref.watch(themeProvider);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(themeProvider).init();
-    });
 
     return MaterialApp(
       title: 'Employee Manager',

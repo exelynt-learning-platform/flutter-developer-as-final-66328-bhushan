@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../framwork/providers/provider/country_provider.dart';
-import '../../framwork/providers/provider/employee_provider.dart';
-import '../../framwork/repository/model/employee_model/employee_model.dart';
+import '../../framework/providers/provider/country_provider.dart';
+import '../../framework/providers/provider/employee_provider.dart';
+import '../../framework/repository/model/employee_model/employee_model.dart';
 import '../helper/custom_dropdown.dart';
 import '../helper/custom_text_field.dart';
 import '../helper/snackbar_helper.dart';

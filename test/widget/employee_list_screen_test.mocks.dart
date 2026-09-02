@@ -6,11 +6,11 @@
 
 import 'dart:async' as _i5;
 
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_auth_repository.dart'
     as _i4;
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_employee_repository.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_employee_repository.dart'
     as _i6;
-import 'package:employee_management_application_flutter_assessment/framwork/repository/model/employee_model/employee_model.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/model/employee_model/employee_model.dart'
     as _i3;
 import 'package:firebase_auth/firebase_auth.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -32,13 +32,23 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeUserCredential_0 extends _i1.SmartFake
     implements _i2.UserCredential {
-  _FakeUserCredential_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeUserCredential_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
 }
 
 class _FakeEmployeeModel_1 extends _i1.SmartFake implements _i3.EmployeeModel {
-  _FakeEmployeeModel_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeEmployeeModel_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
 }
 
 /// A class which mocks [IAuthRepository].
@@ -50,12 +60,10 @@ class MockIAuthRepository extends _i1.Mock implements _i4.IAuthRepository {
   }
 
   @override
-  _i5.Stream<_i2.User?> get authStateChanges =>
-      (super.noSuchMethod(
-            Invocation.getter(#authStateChanges),
-            returnValue: _i5.Stream<_i2.User?>.empty(),
-          )
-          as _i5.Stream<_i2.User?>);
+  _i5.Stream<_i2.User?> get authStateChanges => (super.noSuchMethod(
+        Invocation.getter(#authStateChanges),
+        returnValue: _i5.Stream<_i2.User?>.empty(),
+      ) as _i5.Stream<_i2.User?>);
 
   @override
   _i5.Future<_i2.UserCredential> signInWithEmail(
@@ -63,15 +71,24 @@ class MockIAuthRepository extends _i1.Mock implements _i4.IAuthRepository {
     String? password,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#signInWithEmail, [email, password]),
-            returnValue: _i5.Future<_i2.UserCredential>.value(
-              _FakeUserCredential_0(
-                this,
-                Invocation.method(#signInWithEmail, [email, password]),
-              ),
-            ),
-          )
-          as _i5.Future<_i2.UserCredential>);
+        Invocation.method(
+          #signInWithEmail,
+          [
+            email,
+            password,
+          ],
+        ),
+        returnValue: _i5.Future<_i2.UserCredential>.value(_FakeUserCredential_0(
+          this,
+          Invocation.method(
+            #signInWithEmail,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i2.UserCredential>);
 
   @override
   _i5.Future<_i2.UserCredential> registerWithEmail(
@@ -80,54 +97,55 @@ class MockIAuthRepository extends _i1.Mock implements _i4.IAuthRepository {
     String? displayName,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#registerWithEmail, [
+        Invocation.method(
+          #registerWithEmail,
+          [
+            email,
+            password,
+            displayName,
+          ],
+        ),
+        returnValue: _i5.Future<_i2.UserCredential>.value(_FakeUserCredential_0(
+          this,
+          Invocation.method(
+            #registerWithEmail,
+            [
               email,
               password,
               displayName,
-            ]),
-            returnValue: _i5.Future<_i2.UserCredential>.value(
-              _FakeUserCredential_0(
-                this,
-                Invocation.method(#registerWithEmail, [
-                  email,
-                  password,
-                  displayName,
-                ]),
-              ),
-            ),
-          )
-          as _i5.Future<_i2.UserCredential>);
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i2.UserCredential>);
 
   @override
-  _i5.Future<_i2.UserCredential> signInWithGoogle() =>
-      (super.noSuchMethod(
-            Invocation.method(#signInWithGoogle, []),
-            returnValue: _i5.Future<_i2.UserCredential>.value(
-              _FakeUserCredential_0(
-                this,
-                Invocation.method(#signInWithGoogle, []),
-              ),
-            ),
-          )
-          as _i5.Future<_i2.UserCredential>);
+  _i5.Future<_i2.UserCredential?> signInWithGoogle() => (super.noSuchMethod(
+        Invocation.method(
+          #signInWithGoogle,
+          [],
+        ),
+        returnValue: _i5.Future<_i2.UserCredential?>.value(),
+      ) as _i5.Future<_i2.UserCredential?>);
 
   @override
-  _i5.Future<void> sendPasswordResetEmail(String? email) =>
-      (super.noSuchMethod(
-            Invocation.method(#sendPasswordResetEmail, [email]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+  _i5.Future<void> sendPasswordResetEmail(String? email) => (super.noSuchMethod(
+        Invocation.method(
+          #sendPasswordResetEmail,
+          [email],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> signOut() =>
-      (super.noSuchMethod(
-            Invocation.method(#signOut, []),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+  _i5.Future<void> signOut() => (super.noSuchMethod(
+        Invocation.method(
+          #signOut,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [IEmployeeRepository].
@@ -140,40 +158,46 @@ class MockIEmployeeRepository extends _i1.Mock
   }
 
   @override
-  _i5.Future<List<_i3.EmployeeModel>> getAllEmployees() =>
-      (super.noSuchMethod(
-            Invocation.method(#getAllEmployees, []),
-            returnValue: _i5.Future<List<_i3.EmployeeModel>>.value(
-              <_i3.EmployeeModel>[],
-            ),
-          )
-          as _i5.Future<List<_i3.EmployeeModel>>);
+  _i5.Future<List<_i3.EmployeeModel>> getAllEmployees() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllEmployees,
+          [],
+        ),
+        returnValue:
+            _i5.Future<List<_i3.EmployeeModel>>.value(<_i3.EmployeeModel>[]),
+      ) as _i5.Future<List<_i3.EmployeeModel>>);
 
   @override
   _i5.Future<_i3.EmployeeModel> getEmployeeById(String? id) =>
       (super.noSuchMethod(
-            Invocation.method(#getEmployeeById, [id]),
-            returnValue: _i5.Future<_i3.EmployeeModel>.value(
-              _FakeEmployeeModel_1(
-                this,
-                Invocation.method(#getEmployeeById, [id]),
-              ),
-            ),
-          )
-          as _i5.Future<_i3.EmployeeModel>);
+        Invocation.method(
+          #getEmployeeById,
+          [id],
+        ),
+        returnValue: _i5.Future<_i3.EmployeeModel>.value(_FakeEmployeeModel_1(
+          this,
+          Invocation.method(
+            #getEmployeeById,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i3.EmployeeModel>);
 
   @override
   _i5.Future<_i3.EmployeeModel> createEmployee(_i3.EmployeeModel? employee) =>
       (super.noSuchMethod(
-            Invocation.method(#createEmployee, [employee]),
-            returnValue: _i5.Future<_i3.EmployeeModel>.value(
-              _FakeEmployeeModel_1(
-                this,
-                Invocation.method(#createEmployee, [employee]),
-              ),
-            ),
-          )
-          as _i5.Future<_i3.EmployeeModel>);
+        Invocation.method(
+          #createEmployee,
+          [employee],
+        ),
+        returnValue: _i5.Future<_i3.EmployeeModel>.value(_FakeEmployeeModel_1(
+          this,
+          Invocation.method(
+            #createEmployee,
+            [employee],
+          ),
+        )),
+      ) as _i5.Future<_i3.EmployeeModel>);
 
   @override
   _i5.Future<_i3.EmployeeModel> updateEmployee(
@@ -181,22 +205,32 @@ class MockIEmployeeRepository extends _i1.Mock
     _i3.EmployeeModel? employee,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#updateEmployee, [id, employee]),
-            returnValue: _i5.Future<_i3.EmployeeModel>.value(
-              _FakeEmployeeModel_1(
-                this,
-                Invocation.method(#updateEmployee, [id, employee]),
-              ),
-            ),
-          )
-          as _i5.Future<_i3.EmployeeModel>);
+        Invocation.method(
+          #updateEmployee,
+          [
+            id,
+            employee,
+          ],
+        ),
+        returnValue: _i5.Future<_i3.EmployeeModel>.value(_FakeEmployeeModel_1(
+          this,
+          Invocation.method(
+            #updateEmployee,
+            [
+              id,
+              employee,
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i3.EmployeeModel>);
 
   @override
-  _i5.Future<void> deleteEmployee(String? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteEmployee, [id]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+  _i5.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteEmployee,
+          [id],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }

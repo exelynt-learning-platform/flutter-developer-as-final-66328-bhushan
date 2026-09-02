@@ -61,10 +61,19 @@ class AuthNotifier extends ChangeNotifier {
     }
   }
 
-  Future<bool> signInWithGoogle() async {
+  /// Returns true on success, false on error, null when user cancels (no snackbar shown).
+  Future<bool?> signInWithGoogle() async {
     _setLoading();
     try {
       final credential = await _repository.signInWithGoogle();
+      // null means the user dismissed the Google chooser — reset to initial
+      // silently so the UI shows no error.
+      if (credential == null) {
+        _status = StatusEnum.initial;
+        _errorMessage = null;
+        notifyListeners();
+        return null;
+      }
       _user = credential.user;
       _setSuccess();
       return true;

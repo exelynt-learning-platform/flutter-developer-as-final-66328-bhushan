@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/repository/auth_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/repository/auth_repository.dart';
 
 import 'auth_repository_test.mocks.dart';
 
@@ -189,15 +189,14 @@ void main() {
     verify(mockAuth.signInWithCredential(any)).called(1);
   });
 
-  test('signInWithGoogle should throw when user cancels', () async {
-    // user cancels = signIn() returns null
+  test('signInWithGoogle should return null when user cancels', () async {
+    // user cancels = signIn() returns null → no throw, just null returned
     when(mockGoogleSignIn.signIn()).thenAnswer((_) async => null);
 
-    expect(
-      () => repository.signInWithGoogle(),
-      throwsA(predicate((e) =>
-          e.toString().contains('cancelled'))),
-    );
+    final result = await repository.signInWithGoogle();
+
+    expect(result, isNull);
+    verifyNever(mockAuth.signInWithCredential(any));
   });
 
   // ── signOut ───────────────────────────────────────────────────────────────

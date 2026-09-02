@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../framwork/providers/provider/auth_provider.dart';
-import '../../framwork/utils/app_theme.dart';
+import '../../framework/providers/provider/auth_provider.dart';
+import '../../framework/utils/app_theme.dart';
 import '../employee_screen/employee_list_screen.dart';
 import '../helper/custom_text_field.dart';
 import '../helper/snackbar_helper.dart';
@@ -49,9 +49,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Future<void> _googleSignIn() async {
-    final success = await ref.read(authProvider).signInWithGoogle();
+    final result = await ref.read(authProvider).signInWithGoogle();
     if (!mounted) return;
-    if (success) {
+    // null = user cancelled — do nothing silently
+    if (result == null) return;
+    if (result) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const EmployeeListScreen()),

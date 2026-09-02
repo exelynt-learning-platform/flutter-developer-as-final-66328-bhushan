@@ -6,7 +6,7 @@
 
 import 'dart:async' as _i4;
 
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_auth_repository.dart'
     as _i3;
 import 'package:firebase_auth/firebase_auth.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -28,8 +28,13 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeUserCredential_0 extends _i1.SmartFake
     implements _i2.UserCredential {
-  _FakeUserCredential_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeUserCredential_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
 }
 
 /// A class which mocks [IAuthRepository].
@@ -41,12 +46,10 @@ class MockIAuthRepository extends _i1.Mock implements _i3.IAuthRepository {
   }
 
   @override
-  _i4.Stream<_i2.User?> get authStateChanges =>
-      (super.noSuchMethod(
-            Invocation.getter(#authStateChanges),
-            returnValue: _i4.Stream<_i2.User?>.empty(),
-          )
-          as _i4.Stream<_i2.User?>);
+  _i4.Stream<_i2.User?> get authStateChanges => (super.noSuchMethod(
+        Invocation.getter(#authStateChanges),
+        returnValue: _i4.Stream<_i2.User?>.empty(),
+      ) as _i4.Stream<_i2.User?>);
 
   @override
   _i4.Future<_i2.UserCredential> signInWithEmail(
@@ -54,15 +57,24 @@ class MockIAuthRepository extends _i1.Mock implements _i3.IAuthRepository {
     String? password,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#signInWithEmail, [email, password]),
-            returnValue: _i4.Future<_i2.UserCredential>.value(
-              _FakeUserCredential_0(
-                this,
-                Invocation.method(#signInWithEmail, [email, password]),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.UserCredential>);
+        Invocation.method(
+          #signInWithEmail,
+          [
+            email,
+            password,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.UserCredential>.value(_FakeUserCredential_0(
+          this,
+          Invocation.method(
+            #signInWithEmail,
+            [
+              email,
+              password,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.UserCredential>);
 
   @override
   _i4.Future<_i2.UserCredential> registerWithEmail(
@@ -71,52 +83,53 @@ class MockIAuthRepository extends _i1.Mock implements _i3.IAuthRepository {
     String? displayName,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#registerWithEmail, [
+        Invocation.method(
+          #registerWithEmail,
+          [
+            email,
+            password,
+            displayName,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.UserCredential>.value(_FakeUserCredential_0(
+          this,
+          Invocation.method(
+            #registerWithEmail,
+            [
               email,
               password,
               displayName,
-            ]),
-            returnValue: _i4.Future<_i2.UserCredential>.value(
-              _FakeUserCredential_0(
-                this,
-                Invocation.method(#registerWithEmail, [
-                  email,
-                  password,
-                  displayName,
-                ]),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.UserCredential>);
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.UserCredential>);
 
   @override
-  _i4.Future<_i2.UserCredential> signInWithGoogle() =>
-      (super.noSuchMethod(
-            Invocation.method(#signInWithGoogle, []),
-            returnValue: _i4.Future<_i2.UserCredential>.value(
-              _FakeUserCredential_0(
-                this,
-                Invocation.method(#signInWithGoogle, []),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.UserCredential>);
+  _i4.Future<_i2.UserCredential?> signInWithGoogle() => (super.noSuchMethod(
+        Invocation.method(
+          #signInWithGoogle,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.UserCredential?>.value(),
+      ) as _i4.Future<_i2.UserCredential?>);
 
   @override
-  _i4.Future<void> sendPasswordResetEmail(String? email) =>
-      (super.noSuchMethod(
-            Invocation.method(#sendPasswordResetEmail, [email]),
-            returnValue: _i4.Future<void>.value(),
-            returnValueForMissingStub: _i4.Future<void>.value(),
-          )
-          as _i4.Future<void>);
+  _i4.Future<void> sendPasswordResetEmail(String? email) => (super.noSuchMethod(
+        Invocation.method(
+          #sendPasswordResetEmail,
+          [email],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i4.Future<void> signOut() =>
-      (super.noSuchMethod(
-            Invocation.method(#signOut, []),
-            returnValue: _i4.Future<void>.value(),
-            returnValueForMissingStub: _i4.Future<void>.value(),
-          )
-          as _i4.Future<void>);
+  _i4.Future<void> signOut() => (super.noSuchMethod(
+        Invocation.method(
+          #signOut,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

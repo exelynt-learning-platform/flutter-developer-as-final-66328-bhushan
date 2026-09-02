@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../framwork/repository/model/employee_model/employee_model.dart';
+import '../../../framework/repository/model/employee_model/employee_model.dart';
 
 /// Reusable employee list card
 class EmployeeCard extends StatelessWidget {

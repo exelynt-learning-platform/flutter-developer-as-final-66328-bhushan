@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:employee_management_application_flutter_assessment/framwork/data/status_enum.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/providers/provider/auth_provider.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framework/data/status_enum.dart';
+import 'package:employee_management_application_flutter_assessment/framework/providers/provider/auth_provider.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_auth_repository.dart';
 
 import 'auth_provider_test.mocks.dart';
 
@@ -122,15 +122,29 @@ void main() {
     expect(notifier.user, mockUser);
   });
 
-  test('signInWithGoogle returns false and sets error when cancelled', () async {
+  test('signInWithGoogle returns null and resets to initial when user cancels',
+      () async {
+    // null credential = user dismissed the Google chooser
+    when(mockRepo.signInWithGoogle()).thenAnswer((_) async => null);
+
+    final result = await notifier.signInWithGoogle();
+
+    expect(result, isNull);
+    expect(notifier.status, StatusEnum.initial);
+    expect(notifier.errorMessage, isNull);
+    expect(notifier.user, isNull);
+  });
+
+  test('signInWithGoogle returns false and sets error on FirebaseAuthException',
+      () async {
     when(mockRepo.signInWithGoogle())
-        .thenThrow(Exception('Google Sign-In was cancelled.'));
+        .thenThrow(Exception('Network error. Please check your connection.'));
 
     final result = await notifier.signInWithGoogle();
 
     expect(result, isFalse);
     expect(notifier.status, StatusEnum.error);
-    expect(notifier.errorMessage, contains('cancelled'));
+    expect(notifier.errorMessage, contains('Network error'));
   });
 
   // ── sendPasswordResetEmail ────────────────────────────────────────────────

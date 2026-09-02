@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/providers/provider/auth_provider.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framework/providers/provider/auth_provider.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_auth_repository.dart';
 import 'package:employee_management_application_flutter_assessment/ui/auth_screen/login_screen.dart';
 
 import 'login_screen_test.mocks.dart';
