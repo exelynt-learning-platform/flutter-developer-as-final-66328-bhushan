@@ -492,8 +492,9 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                                 ),
                               ),
                               onEdit: () async {
-                                final result = await Navigator.push<bool>(
-                                  context,
+                                final nav = Navigator.of(context);
+                                final messenger = ScaffoldMessenger.of(context);
+                                final result = await nav.push<bool>(
                                   MaterialPageRoute(
                                     builder: (_) =>
                                         AddEditEmployeeScreen(employee: employee),
@@ -501,8 +502,10 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                                 );
                                 if (!mounted) return;
                                 if (result == true) {
-                                  SnackbarHelper.showSuccess(context,
-                                      'Employee updated successfully!');
+                                  messenger.showSnackBar(const SnackBar(
+                                    content: Text('Employee updated successfully!'),
+                                    behavior: SnackBarBehavior.floating,
+                                  ));
                                 }
                               },
                               onDelete: employee.id != null
@@ -528,8 +531,9 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                               ),
                             ),
                             onEdit: () async {
-                              final result = await Navigator.push<bool>(
-                                context,
+                              final nav = Navigator.of(context);
+                              final messenger = ScaffoldMessenger.of(context);
+                              final result = await nav.push<bool>(
                                 MaterialPageRoute(
                                   builder: (_) =>
                                       AddEditEmployeeScreen(employee: employee),
@@ -537,8 +541,10 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                               );
                               if (!mounted) return;
                               if (result == true) {
-                                SnackbarHelper.showSuccess(
-                                    context, 'Employee updated successfully!');
+                                messenger.showSnackBar(const SnackBar(
+                                  content: Text('Employee updated successfully!'),
+                                  behavior: SnackBarBehavior.floating,
+                                ));
                               }
                             },
                             onDelete: employee.id != null
