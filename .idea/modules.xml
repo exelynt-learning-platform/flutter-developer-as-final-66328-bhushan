@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/employee_management_application_flutter_assessment.iml" filepath="$PROJECT_DIR$/employee_management_application_flutter_assessment.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/employee_management_application_flutter_assessment_android.iml" filepath="$PROJECT_DIR$/android/employee_management_application_flutter_assessment_android.iml" />
-    </modules>
-  </component>
-</project>
