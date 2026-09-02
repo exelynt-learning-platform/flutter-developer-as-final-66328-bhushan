@@ -31,8 +31,9 @@ class EmployeeCard extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(16),
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Avatar
                 CircleAvatar(
@@ -154,7 +155,7 @@ class EmployeeCard extends StatelessWidget {
                         ),
                       ),
                     if (onEdit != null && onDelete != null)
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                     if (onDelete != null)
                       SizedBox(
                         width: 32,

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../contract/i_auth_repository.dart';
@@ -51,6 +52,17 @@ class AuthRepository implements IAuthRepository {
   /// throws only on genuine FirebaseAuthException errors.
   Future<UserCredential?> signInWithGoogle() async {
     try {
+      // On web, google_sign_in_web returns an access_token but idToken is
+      // often null, which breaks GoogleAuthProvider.credential(). Using
+      // signInWithPopup directly is the recommended approach for web.
+      if (kIsWeb) {
+        final googleProvider = GoogleAuthProvider();
+        googleProvider.addScope('email');
+        googleProvider.addScope('profile');
+        return await _auth.signInWithPopup(googleProvider);
+      }
+
+      // Mobile (Android / iOS)
       final googleUser = await _googleSignIn.signIn();
       // User dismissed the chooser — treat as a silent no-op, not an error.
       if (googleUser == null) return null;
