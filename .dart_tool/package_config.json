@@ -785,7 +785,7 @@
       "name": "employee_management_application_flutter_assessment",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "3.0"
     }
   ],
   "generator": "pub",
