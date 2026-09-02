@@ -136,22 +136,38 @@ class EmployeeCard extends StatelessWidget {
 
                 // Actions
                 Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (onEdit != null)
-                      IconButton(
-                        onPressed: onEdit,
-                        icon: Icon(Icons.edit_outlined,
-                            color: colorScheme.primary, size: 20),
-                        tooltip: 'Edit',
-                        visualDensity: VisualDensity.compact,
+                      SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: Tooltip(
+                          message: 'Edit',
+                          child: InkWell(
+                            onTap: onEdit,
+                            borderRadius: BorderRadius.circular(16),
+                            child: Icon(Icons.edit_outlined,
+                                color: colorScheme.primary, size: 18),
+                          ),
+                        ),
                       ),
+                    if (onEdit != null && onDelete != null)
+                      const SizedBox(height: 4),
                     if (onDelete != null)
-                      IconButton(
-                        onPressed: onDelete,
-                        icon: Icon(Icons.delete_outline,
-                            color: colorScheme.error, size: 20),
-                        tooltip: 'Delete',
-                        visualDensity: VisualDensity.compact,
+                      SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: Tooltip(
+                          message: 'Delete',
+                          child: InkWell(
+                            onTap: onDelete,
+                            borderRadius: BorderRadius.circular(16),
+                            child: Icon(Icons.delete_outline,
+                                color: colorScheme.error, size: 18),
+                          ),
+                        ),
                       ),
                   ],
                 ),

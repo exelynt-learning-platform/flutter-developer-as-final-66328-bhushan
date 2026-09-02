@@ -357,52 +357,52 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                   selected: isSelected,
                   button: true,
                   child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 180),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 7),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? Colors.white
-                        : Colors.white.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
+                    duration: const Duration(milliseconds: 180),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 7),
+                    decoration: BoxDecoration(
                       color: isSelected
                           ? Colors.white
-                          : Colors.white.withValues(alpha: 0.4),
-                      width: 1.2,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (icon != null) ...[
-                        Icon(
-                          icon,
-                          size: 14,
-                          color: isSelected
-                              ? colorScheme.primary
-                              : Colors.white,
-                        ),
-                        const SizedBox(width: 5),
-                      ],
-                      Text(
-                        _filterLabels[field] ?? field,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: isSelected
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                          color: isSelected
-                              ? colorScheme.primary
-                              : Colors.white,
-                        ),
+                          : Colors.white.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: isSelected
+                            ? Colors.white
+                            : Colors.white.withValues(alpha: 0.4),
+                        width: 1.2,
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (icon != null) ...[
+                          Icon(
+                            icon,
+                            size: 14,
+                            color: isSelected
+                                ? colorScheme.primary
+                                : Colors.white,
+                          ),
+                          const SizedBox(width: 5),
+                        ],
+                        Text(
+                          _filterLabels[field] ?? field,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: isSelected
+                                ? FontWeight.w700
+                                : FontWeight.w400,
+                            color: isSelected
+                                ? colorScheme.primary
+                                : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ), // AnimatedContainer
+                ), // Semantics
+              ), // GestureDetector
+            ); // Padding / return
           }).toList(),
         ),
       ),
