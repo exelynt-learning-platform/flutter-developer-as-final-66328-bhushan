@@ -6,7 +6,7 @@
 
 import 'dart:async' as _i4;
 
-import 'package:employee_management_application_flutter_assessment/framwork/repository/repository/auth_repository.dart'
+import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart'
     as _i3;
 import 'package:firebase_auth/firebase_auth.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -32,11 +32,11 @@ class _FakeUserCredential_0 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-/// A class which mocks [AuthRepository].
+/// A class which mocks [IAuthRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
-  MockAuthRepository() {
+class MockIAuthRepository extends _i1.Mock implements _i3.IAuthRepository {
+  MockIAuthRepository() {
     _i1.throwOnMissingStub(this);
   }
 

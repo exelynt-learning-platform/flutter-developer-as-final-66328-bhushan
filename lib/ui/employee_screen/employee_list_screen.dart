@@ -352,7 +352,11 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
               child: GestureDetector(
                 onTap: () =>
                     ref.read(employeeProvider).setFilterField(field),
-                child: AnimatedContainer(
+                child: Semantics(
+                  label: 'Filter by ${_filterLabels[field] ?? field}',
+                  selected: isSelected,
+                  button: true,
+                  child: AnimatedContainer(
                   duration: const Duration(milliseconds: 180),
                   padding: const EdgeInsets.symmetric(
                       horizontal: 14, vertical: 7),
@@ -397,7 +401,8 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                   ),
                 ),
               ),
-            );
+            ),
+          );
           }).toList(),
         ),
       ),
@@ -459,37 +464,86 @@ class _EmployeeListScreenState extends ConsumerState<EmployeeListScreen> {
                 )
               : RefreshIndicator(
                   onRefresh: _onRefresh,
-                  child: ListView.builder(
-                    padding:
-                        const EdgeInsets.only(bottom: 80, top: 4),
-                    itemCount: notifier.employees.length,
-                    itemBuilder: (_, index) {
-                      final employee = notifier.employees[index];
-                      return EmployeeCard(
-                        employee: employee,
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                EmployeeDetailScreen(employee: employee),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      // On wide screens (tablet / desktop) show a two-column grid
+                      final isWide = constraints.maxWidth >= 700;
+                      if (isWide) {
+                        return GridView.builder(
+                          padding: const EdgeInsets.only(
+                              bottom: 80, top: 4, left: 8, right: 8),
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 480,
+                            childAspectRatio: 3.4,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
                           ),
-                        ),
-                        onEdit: () async {
-                          final result = await Navigator.push<bool>(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  AddEditEmployeeScreen(employee: employee),
+                          itemCount: notifier.employees.length,
+                          itemBuilder: (_, index) {
+                            final employee = notifier.employees[index];
+                            return EmployeeCard(
+                              employee: employee,
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      EmployeeDetailScreen(employee: employee),
+                                ),
+                              ),
+                              onEdit: () async {
+                                final result = await Navigator.push<bool>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        AddEditEmployeeScreen(employee: employee),
+                                  ),
+                                );
+                                if (result == true && mounted) {
+                                  SnackbarHelper.showSuccess(context,
+                                      'Employee updated successfully!');
+                                }
+                              },
+                              onDelete: employee.id != null
+                                  ? () => _deleteEmployee(employee)
+                                  : null,
+                            );
+                          },
+                        );
+                      }
+                      return ListView.builder(
+                        padding:
+                            const EdgeInsets.only(bottom: 80, top: 4),
+                        itemCount: notifier.employees.length,
+                        itemBuilder: (_, index) {
+                          final employee = notifier.employees[index];
+                          return EmployeeCard(
+                            employee: employee,
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    EmployeeDetailScreen(employee: employee),
+                              ),
                             ),
+                            onEdit: () async {
+                              final result = await Navigator.push<bool>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      AddEditEmployeeScreen(employee: employee),
+                                ),
+                              );
+                              if (result == true && mounted) {
+                                SnackbarHelper.showSuccess(
+                                    context, 'Employee updated successfully!');
+                              }
+                            },
+                            onDelete: employee.id != null
+                                ? () => _deleteEmployee(employee)
+                                : null,
                           );
-                          if (result == true && mounted) {
-                            SnackbarHelper.showSuccess(
-                                context, 'Employee updated successfully!');
-                          }
                         },
-                        onDelete: employee.id != null
-                            ? () => _deleteEmployee(employee)
-                            : null,
                       );
                     },
                   ),

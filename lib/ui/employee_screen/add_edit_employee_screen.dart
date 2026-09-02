@@ -111,11 +111,17 @@ class _AddEditEmployeeScreenState
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Form(
-              key: _formKey,
-              child: Column(
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final isWide = constraints.maxWidth >= 600;
+              final horizontalPadding =
+                  isWide ? (constraints.maxWidth - 560) / 2 : 20.0;
+              return SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                    horizontal: horizontalPadding, vertical: 20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // ── Personal Information ────────────────────────────────
@@ -265,7 +271,9 @@ class _AddEditEmployeeScreenState
                 ],
               ),
             ),
-          ),
+          );
+            },
+          ),  // LayoutBuilder
 
           if (isLoading)
             Container(

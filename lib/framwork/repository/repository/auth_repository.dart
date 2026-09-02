@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthRepository {
+import '../contract/i_auth_repository.dart';
+
+class AuthRepository implements IAuthRepository {
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
 

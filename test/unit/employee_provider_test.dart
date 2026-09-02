@@ -4,13 +4,13 @@ import 'package:mockito/mockito.dart';
 import 'package:employee_management_application_flutter_assessment/framwork/data/status_enum.dart';
 import 'package:employee_management_application_flutter_assessment/framwork/providers/provider/employee_provider.dart';
 import 'package:employee_management_application_flutter_assessment/framwork/repository/model/employee_model/employee_model.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/repository/employee_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_employee_repository.dart';
 
 import 'employee_provider_test.mocks.dart';
 
-@GenerateMocks([EmployeeRepository])
+@GenerateMocks([IEmployeeRepository])
 void main() {
-  late MockEmployeeRepository mockRepo;
+  late MockIEmployeeRepository mockRepo;
   late EmployeeNotifier notifier;
 
   // some test employees
@@ -35,7 +35,7 @@ void main() {
   );
 
   setUp(() {
-    mockRepo = MockEmployeeRepository();
+    mockRepo = MockIEmployeeRepository();
     // skipCacheForTesting = true to avoid SharedPreferences in tests
     notifier = EmployeeNotifier(repository: mockRepo, skipCacheForTesting: true);
   });

@@ -49,9 +49,20 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Forgot Password')),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-          child: _emailSent ? _buildSuccessView() : _buildFormView(isLoading),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Centred card layout on tablets/web (≥600 dp wide)
+            final isWide = constraints.maxWidth >= 600;
+            final horizontalPadding =
+                isWide ? (constraints.maxWidth - 520) / 2 : 24.0;
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                  horizontal: horizontalPadding, vertical: 32),
+              child: _emailSent
+                  ? _buildSuccessView()
+                  : _buildFormView(isLoading),
+            );
+          },
         ),
       ),
     );
@@ -64,20 +75,23 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primary
-                    .withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Icon(
-                Icons.lock_reset_rounded,
-                size: 44,
-                color: Theme.of(context).colorScheme.primary,
+            child: Semantics(
+              label: 'Reset password icon',
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Icon(
+                  Icons.lock_reset_rounded,
+                  size: 44,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
           ),
@@ -124,18 +138,22 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             },
           ),
           const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: isLoading ? null : _sendResetEmail,
-            child: isLoading
-                ? const SizedBox(
-                    height: 22,
-                    width: 22,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2.5,
-                    ),
-                  )
-                : const Text('Send Reset Link'),
+          Semantics(
+            button: true,
+            label: 'Send Reset Link',
+            child: ElevatedButton(
+              onPressed: isLoading ? null : _sendResetEmail,
+              child: isLoading
+                  ? const SizedBox(
+                      height: 22,
+                      width: 22,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2.5,
+                      ),
+                    )
+                  : const Text('Send Reset Link'),
+            ),
           ),
         ],
       ),
@@ -147,8 +165,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const SizedBox(height: 40),
-        const Icon(Icons.mark_email_read_rounded,
-            size: 80, color: Colors.green),
+        Semantics(
+          label: 'Email sent successfully',
+          child: const Icon(Icons.mark_email_read_rounded,
+              size: 80, color: Colors.green),
+        ),
         const SizedBox(height: 24),
         Text(
           'Email Sent!',
@@ -170,9 +191,13 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         const SizedBox(height: 32),
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Back to Login'),
+          child: Semantics(
+            button: true,
+            label: 'Back to Login',
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Back to Login'),
+            ),
           ),
         ),
       ],
