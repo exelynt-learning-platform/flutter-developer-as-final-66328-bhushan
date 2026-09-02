@@ -6,12 +6,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:employee_management_application_flutter_assessment/framwork/data/status_enum.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/providers/provider/auth_provider.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/providers/provider/employee_provider.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_employee_repository.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/model/employee_model/employee_model.dart';
+import 'package:employee_management_application_flutter_assessment/framework/data/status_enum.dart';
+import 'package:employee_management_application_flutter_assessment/framework/providers/provider/auth_provider.dart';
+import 'package:employee_management_application_flutter_assessment/framework/providers/provider/employee_provider.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_auth_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_employee_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/model/employee_model/employee_model.dart';
 import 'package:employee_management_application_flutter_assessment/ui/employee_screen/employee_list_screen.dart';
 import 'package:employee_management_application_flutter_assessment/ui/helper/loading_widget.dart';
 

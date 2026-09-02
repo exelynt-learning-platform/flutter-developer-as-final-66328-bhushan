@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:employee_management_application_flutter_assessment/framwork/providers/provider/auth_provider.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framework/providers/provider/auth_provider.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_auth_repository.dart';
 import 'package:employee_management_application_flutter_assessment/ui/auth_screen/register_screen.dart';
 
 import 'register_screen_test.mocks.dart';

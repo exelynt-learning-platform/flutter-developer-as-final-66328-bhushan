@@ -6,13 +6,13 @@
 
 import 'dart:async' as _i4;
 
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_country_repository.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_country_repository.dart'
     as _i5;
-import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_employee_repository.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/contract/i_employee_repository.dart'
     as _i3;
-import 'package:employee_management_application_flutter_assessment/framwork/repository/model/country_model/country_model.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/model/country_model/country_model.dart'
     as _i6;
-import 'package:employee_management_application_flutter_assessment/framwork/repository/model/employee_model/employee_model.dart'
+import 'package:employee_management_application_flutter_assessment/framework/repository/model/employee_model/employee_model.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -32,8 +32,13 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: invalid_use_of_internal_member
 
 class _FakeEmployeeModel_0 extends _i1.SmartFake implements _i2.EmployeeModel {
-  _FakeEmployeeModel_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeEmployeeModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
 }
 
 /// A class which mocks [IEmployeeRepository].
@@ -46,40 +51,46 @@ class MockIEmployeeRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<List<_i2.EmployeeModel>> getAllEmployees() =>
-      (super.noSuchMethod(
-            Invocation.method(#getAllEmployees, []),
-            returnValue: _i4.Future<List<_i2.EmployeeModel>>.value(
-              <_i2.EmployeeModel>[],
-            ),
-          )
-          as _i4.Future<List<_i2.EmployeeModel>>);
+  _i4.Future<List<_i2.EmployeeModel>> getAllEmployees() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllEmployees,
+          [],
+        ),
+        returnValue:
+            _i4.Future<List<_i2.EmployeeModel>>.value(<_i2.EmployeeModel>[]),
+      ) as _i4.Future<List<_i2.EmployeeModel>>);
 
   @override
   _i4.Future<_i2.EmployeeModel> getEmployeeById(String? id) =>
       (super.noSuchMethod(
-            Invocation.method(#getEmployeeById, [id]),
-            returnValue: _i4.Future<_i2.EmployeeModel>.value(
-              _FakeEmployeeModel_0(
-                this,
-                Invocation.method(#getEmployeeById, [id]),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.EmployeeModel>);
+        Invocation.method(
+          #getEmployeeById,
+          [id],
+        ),
+        returnValue: _i4.Future<_i2.EmployeeModel>.value(_FakeEmployeeModel_0(
+          this,
+          Invocation.method(
+            #getEmployeeById,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.EmployeeModel>);
 
   @override
   _i4.Future<_i2.EmployeeModel> createEmployee(_i2.EmployeeModel? employee) =>
       (super.noSuchMethod(
-            Invocation.method(#createEmployee, [employee]),
-            returnValue: _i4.Future<_i2.EmployeeModel>.value(
-              _FakeEmployeeModel_0(
-                this,
-                Invocation.method(#createEmployee, [employee]),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.EmployeeModel>);
+        Invocation.method(
+          #createEmployee,
+          [employee],
+        ),
+        returnValue: _i4.Future<_i2.EmployeeModel>.value(_FakeEmployeeModel_0(
+          this,
+          Invocation.method(
+            #createEmployee,
+            [employee],
+          ),
+        )),
+      ) as _i4.Future<_i2.EmployeeModel>);
 
   @override
   _i4.Future<_i2.EmployeeModel> updateEmployee(
@@ -87,24 +98,34 @@ class MockIEmployeeRepository extends _i1.Mock
     _i2.EmployeeModel? employee,
   ) =>
       (super.noSuchMethod(
-            Invocation.method(#updateEmployee, [id, employee]),
-            returnValue: _i4.Future<_i2.EmployeeModel>.value(
-              _FakeEmployeeModel_0(
-                this,
-                Invocation.method(#updateEmployee, [id, employee]),
-              ),
-            ),
-          )
-          as _i4.Future<_i2.EmployeeModel>);
+        Invocation.method(
+          #updateEmployee,
+          [
+            id,
+            employee,
+          ],
+        ),
+        returnValue: _i4.Future<_i2.EmployeeModel>.value(_FakeEmployeeModel_0(
+          this,
+          Invocation.method(
+            #updateEmployee,
+            [
+              id,
+              employee,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.EmployeeModel>);
 
   @override
-  _i4.Future<void> deleteEmployee(String? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteEmployee, [id]),
-            returnValue: _i4.Future<void>.value(),
-            returnValueForMissingStub: _i4.Future<void>.value(),
-          )
-          as _i4.Future<void>);
+  _i4.Future<void> deleteEmployee(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteEmployee,
+          [id],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [ICountryRepository].
@@ -117,12 +138,12 @@ class MockICountryRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<List<_i6.CountryModel>> getAllCountries() =>
-      (super.noSuchMethod(
-            Invocation.method(#getAllCountries, []),
-            returnValue: _i4.Future<List<_i6.CountryModel>>.value(
-              <_i6.CountryModel>[],
-            ),
-          )
-          as _i4.Future<List<_i6.CountryModel>>);
+  _i4.Future<List<_i6.CountryModel>> getAllCountries() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllCountries,
+          [],
+        ),
+        returnValue:
+            _i4.Future<List<_i6.CountryModel>>.value(<_i6.CountryModel>[]),
+      ) as _i4.Future<List<_i6.CountryModel>>);
 }

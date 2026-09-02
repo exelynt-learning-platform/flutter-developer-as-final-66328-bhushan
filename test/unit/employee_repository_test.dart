@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/providers/networks/dio_helper.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/repository/employee_repository.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/model/employee_model/employee_model.dart';
+import 'package:employee_management_application_flutter_assessment/framework/providers/networks/dio_helper.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/repository/employee_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/model/employee_model/employee_model.dart';
 
 import 'employee_repository_test.mocks.dart';
 

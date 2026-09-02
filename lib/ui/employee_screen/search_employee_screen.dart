@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../framwork/data/status_enum.dart';
-import '../../framwork/providers/provider/employee_provider.dart';
-import '../../framwork/repository/model/employee_model/employee_model.dart';
+import '../../framework/data/status_enum.dart';
+import '../../framework/providers/provider/employee_provider.dart';
+import '../../framework/repository/model/employee_model/employee_model.dart';
 import '../helper/snackbar_helper.dart';
 import 'employee_detail_screen.dart';
 

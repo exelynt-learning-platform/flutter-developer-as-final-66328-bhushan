@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/model/employee_model/employee_model.dart';
+import 'package:employee_management_application_flutter_assessment/framework/repository/model/employee_model/employee_model.dart';
 import 'package:employee_management_application_flutter_assessment/ui/helper/employee_card.dart';
 
 void main() {

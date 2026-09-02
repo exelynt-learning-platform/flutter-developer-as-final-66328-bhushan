@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../../framwork/repository/contract/api_contract.dart';
+import '../../../framework/repository/contract/api_contract.dart';
 import 'get_dio.dart';
 
 class DioHelper implements ApiContract {

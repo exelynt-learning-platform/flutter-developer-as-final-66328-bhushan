@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../framwork/providers/provider/auth_provider.dart';
+import '../../framework/providers/provider/auth_provider.dart';
 import '../employee_screen/employee_list_screen.dart';
 import '../helper/custom_text_field.dart';
 import '../helper/snackbar_helper.dart';
