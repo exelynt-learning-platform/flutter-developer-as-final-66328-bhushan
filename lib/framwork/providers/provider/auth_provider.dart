@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/status_enum.dart';
+import '../../repository/contract/i_auth_repository.dart';
 import '../../repository/repository/auth_repository.dart';
 
 final authProvider = ChangeNotifierProvider<AuthNotifier>((ref) {
@@ -9,9 +10,9 @@ final authProvider = ChangeNotifierProvider<AuthNotifier>((ref) {
 });
 
 class AuthNotifier extends ChangeNotifier {
-  final AuthRepository _repository;
+  final IAuthRepository _repository;
 
-  AuthNotifier({AuthRepository? repository})
+  AuthNotifier({IAuthRepository? repository})
       : _repository = repository ?? AuthRepository();
 
   StatusEnum _status = StatusEnum.initial;

@@ -49,7 +49,9 @@ class _SearchEmployeeScreenState extends ConsumerState<SearchEmployeeScreen> {
     final notifier = ref.read(employeeProvider);
     if (notifier.crudStatus == StatusEnum.error) {
       SnackbarHelper.showError(
-          context, notifier.crudErrorMessage ?? 'Employee not found');
+        context,
+        notifier.crudErrorMessage ?? 'Employee not found',
+      );
     } else if (notifier.selectedEmployee != null) {
       // Navigate to detail screen on success
       Navigator.push(
@@ -104,7 +106,9 @@ class _SearchEmployeeScreenState extends ConsumerState<SearchEmployeeScreen> {
                             width: 20,
                             height: 20,
                             child: CircularProgressIndicator(
-                                color: Colors.white, strokeWidth: 2),
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
                           )
                         : const Icon(Icons.search_rounded),
                   ),
@@ -142,22 +146,24 @@ class _SearchEmployeeScreenState extends ConsumerState<SearchEmployeeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.person_off_outlined,
-                size: 72, color: colorScheme.error.withValues(alpha: 0.6)),
+            Icon(
+              Icons.person_off_outlined,
+              size: 72,
+              color: colorScheme.error.withValues(alpha: 0.6),
+            ),
             const SizedBox(height: 16),
             Text(
               'Employee not found',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(fontWeight: FontWeight.w600),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
               notifier.crudErrorMessage ?? 'No employee with that ID exists',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.5),
-                  ),
+                color: colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
               textAlign: TextAlign.center,
             ),
           ],
@@ -184,21 +190,24 @@ class _SearchEmployeeScreenState extends ConsumerState<SearchEmployeeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.manage_search_rounded,
-              size: 80, color: colorScheme.primary.withValues(alpha: 0.25)),
+          Icon(
+            Icons.manage_search_rounded,
+            size: 80,
+            color: colorScheme.primary.withValues(alpha: 0.25),
+          ),
           const SizedBox(height: 16),
           Text(
             'Enter an ID to search',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: colorScheme.onSurface.withValues(alpha: 0.5),
-                ),
+              color: colorScheme.onSurface.withValues(alpha: 0.5),
+            ),
           ),
           const SizedBox(height: 6),
           Text(
             'Find any employee by their numeric ID',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurface.withValues(alpha: 0.35),
-                ),
+              color: colorScheme.onSurface.withValues(alpha: 0.35),
+            ),
           ),
         ],
       ),
@@ -219,114 +228,125 @@ class _ResultCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final initials = _initials(employee.name);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Found label
-        Row(
-          children: [
-            Icon(Icons.check_circle_rounded,
-                color: Colors.green.shade600, size: 18),
-            const SizedBox(width: 6),
-            Text(
-              'Employee found',
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: Colors.green.shade700,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Found label
+          Row(
+            children: [
+              Icon(
+                Icons.check_circle_rounded,
+                color: Colors.green.shade600,
+                size: 18,
+              ),
+              const SizedBox(width: 6),
+              Text(
+                'Employee found',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Colors.green.shade700,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
 
-        // Card
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                // Avatar + name
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 32,
-                      backgroundColor:
-                          colorScheme.primary.withValues(alpha: 0.12),
-                      child: Text(
-                        initials,
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: colorScheme.primary,
+          // Card
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  // Avatar + name
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 32,
+                        backgroundColor: colorScheme.primary.withValues(
+                          alpha: 0.12,
+                        ),
+                        child: Text(
+                          initials,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.primary,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            employee.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                          ),
-                          if (employee.id != null)
-                            Container(
-                              margin: const EdgeInsets.only(top: 4),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 2),
-                              decoration: BoxDecoration(
-                                color:
-                                    colorScheme.primary.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Text(
-                                'ID: ${employee.id}',
-                                style: TextStyle(
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              employee.name,
+                              style: Theme.of(context).textTheme.titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                            if (employee.id != null)
+                              Container(
+                                margin: const EdgeInsets.only(top: 4),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: colorScheme.primary.withValues(
+                                    alpha: 0.1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  'ID: ${employee.id}',
+                                  style: TextStyle(
                                     fontSize: 12,
                                     color: colorScheme.primary,
-                                    fontWeight: FontWeight.w500),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                const Divider(height: 1),
-                const SizedBox(height: 16),
-
-                // Details
-                _InfoRow(Icons.email_outlined, 'Email', employee.email),
-                const SizedBox(height: 10),
-                _InfoRow(Icons.phone_outlined, 'Mobile', employee.mobile),
-                const SizedBox(height: 10),
-                _InfoRow(Icons.flag_outlined, 'Country', employee.country),
-                const SizedBox(height: 10),
-                _InfoRow(Icons.map_outlined, 'State', employee.state),
-                const SizedBox(height: 10),
-                _InfoRow(Icons.location_city_outlined, 'District',
-                    employee.district),
-                const SizedBox(height: 20),
-
-                // View details button
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: onViewDetails,
-                    icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                    label: const Text('View Full Details'),
+                    ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 16),
+                  const Divider(height: 1),
+                  const SizedBox(height: 16),
+
+                  // Details
+                  _InfoRow(Icons.email_outlined, 'Email', employee.email),
+                  const SizedBox(height: 10),
+                  _InfoRow(Icons.phone_outlined, 'Mobile', employee.mobile),
+                  const SizedBox(height: 10),
+                  _InfoRow(Icons.flag_outlined, 'Country', employee.country),
+                  const SizedBox(height: 10),
+                  _InfoRow(Icons.map_outlined, 'State', employee.state),
+                  const SizedBox(height: 10),
+                  _InfoRow(
+                    Icons.location_city_outlined,
+                    'District',
+                    employee.district,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // View details button
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: onViewDetails,
+                      icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                      label: const Text('View Full Details'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -349,12 +369,13 @@ class _InfoRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon,
-            size: 16,
-            color: Theme.of(context)
-                .colorScheme
-                .onSurface
-                .withValues(alpha: 0.45)),
+        Icon(
+          icon,
+          size: 16,
+          color: Theme.of(
+            context,
+          ).colorScheme.onSurface.withValues(alpha: 0.45),
+        ),
         const SizedBox(width: 10),
         Expanded(
           child: RichText(
@@ -365,9 +386,7 @@ class _InfoRow extends StatelessWidget {
                   text: '$label: ',
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
-                TextSpan(
-                  text: value.isNotEmpty ? value : '—',
-                ),
+                TextSpan(text: value.isNotEmpty ? value : '—'),
               ],
             ),
           ),

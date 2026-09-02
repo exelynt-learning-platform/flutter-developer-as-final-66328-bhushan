@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import '../../providers/networks/dio_helper.dart';
 import '../../utils/app_constants.dart';
+import '../contract/i_employee_repository.dart';
 import '../model/employee_model/employee_model.dart';
 
-class EmployeeRepository {
+class EmployeeRepository implements IEmployeeRepository {
   final DioHelper _dioHelper;
 
   EmployeeRepository({DioHelper? dioHelper})

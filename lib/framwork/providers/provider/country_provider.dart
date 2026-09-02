@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/status_enum.dart';
+import '../../repository/contract/i_country_repository.dart';
 import '../../repository/model/country_model/country_model.dart';
 import '../../repository/repository/country_repository.dart';
 
@@ -10,9 +11,9 @@ final countryProvider = ChangeNotifierProvider<CountryNotifier>((ref) {
 });
 
 class CountryNotifier extends ChangeNotifier {
-  final CountryRepository _repository;
+  final ICountryRepository _repository;
 
-  CountryNotifier({CountryRepository? repository})
+  CountryNotifier({ICountryRepository? repository})
       : _repository = repository ?? CountryRepository();
 
   StatusEnum _status = StatusEnum.initial;

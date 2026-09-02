@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/status_enum.dart';
 import '../../providers/local/preferences_helper.dart';
+import '../../repository/contract/i_employee_repository.dart';
 import '../../repository/model/employee_model/employee_model.dart';
 import '../../repository/repository/employee_repository.dart';
 
@@ -11,11 +12,11 @@ final employeeProvider = ChangeNotifierProvider<EmployeeNotifier>((ref) {
 });
 
 class EmployeeNotifier extends ChangeNotifier {
-  final EmployeeRepository _repository;
+  final IEmployeeRepository _repository;
   final bool skipCacheForTesting;
 
   EmployeeNotifier({
-    EmployeeRepository? repository,
+    IEmployeeRepository? repository,
     this.skipCacheForTesting = false,
   }) : _repository = repository ?? EmployeeRepository();
 

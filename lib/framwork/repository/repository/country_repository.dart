@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import '../../providers/networks/dio_helper.dart';
 import '../../utils/app_constants.dart';
+import '../contract/i_country_repository.dart';
 import '../model/country_model/country_model.dart';
 
-class CountryRepository {
+class CountryRepository implements ICountryRepository {
   final DioHelper _dioHelper;
 
   CountryRepository({DioHelper? dioHelper})

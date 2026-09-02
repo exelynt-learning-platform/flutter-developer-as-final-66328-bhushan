@@ -25,13 +25,16 @@ class EmptyStateWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 80,
-              color: Theme.of(context)
-                  .colorScheme
-                  .primary
-                  .withValues(alpha: 0.3),
+            Semantics(
+              label: title,
+              child: Icon(
+                icon,
+                size: 80,
+                color: Theme.of(context)
+                    .colorScheme
+                    .primary
+                    .withValues(alpha: 0.3),
+              ),
             ),
             const SizedBox(height: 20),
             Text(

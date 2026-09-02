@@ -4,17 +4,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:employee_management_application_flutter_assessment/framwork/providers/provider/auth_provider.dart';
-import 'package:employee_management_application_flutter_assessment/framwork/repository/repository/auth_repository.dart';
+import 'package:employee_management_application_flutter_assessment/framwork/repository/contract/i_auth_repository.dart';
 import 'package:employee_management_application_flutter_assessment/ui/auth_screen/login_screen.dart';
 
 import 'login_screen_test.mocks.dart';
 
-@GenerateMocks([AuthRepository])
+@GenerateMocks([IAuthRepository])
 void main() {
   // build login screen with a mocked auth provider
   // so Firebase is never called in tests
   Widget buildLoginScreen() {
-    final mockRepo = MockAuthRepository();
+    final mockRepo = MockIAuthRepository();
     when(mockRepo.authStateChanges).thenAnswer((_) => const Stream.empty());
 
     final authNotifier = AuthNotifier(repository: mockRepo);

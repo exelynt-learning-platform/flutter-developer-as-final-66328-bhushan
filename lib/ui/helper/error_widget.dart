@@ -21,13 +21,16 @@ class AppErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.wifi_off_rounded,
-              size: 64,
-              color: Theme.of(context)
-                  .colorScheme
-                  .error
-                  .withValues(alpha: 0.7),
+            Semantics(
+              label: 'Error: $message',
+              child: Icon(
+                Icons.wifi_off_rounded,
+                size: 64,
+                color: Theme.of(context)
+                    .colorScheme
+                    .error
+                    .withValues(alpha: 0.7),
+              ),
             ),
             const SizedBox(height: 20),
             Text(
