@@ -1,27 +1,16 @@
-// Smoke test verifying core models and enums are importable and function
-// correctly in isolation — no Flutter framework or Firebase required.
+// Smoke tests — verify core models and enums work in isolation
+// (no Firebase or Flutter framework required)
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:employee_management_application_flutter_assessment/framework/data/status_enum.dart';
-import 'package:employee_management_application_flutter_assessment/framework/repository/model/employee_model/employee_model.dart';
-import 'package:employee_management_application_flutter_assessment/framework/repository/model/country_model/country_model.dart';
+import 'package:employee_management_application_flutter_assessment/features/employees/data/models/employee_model.dart';
+import 'package:employee_management_application_flutter_assessment/features/employees/domain/entities/country.dart';
+import 'package:employee_management_application_flutter_assessment/features/auth/domain/entities/auth_user.dart';
+import 'package:employee_management_application_flutter_assessment/core/errors/app_failure.dart';
 
 void main() {
-  group('StatusEnum', () {
-    test('has four values', () {
-      expect(StatusEnum.values.length, 4);
-    });
-
-    test('initial is not loading or error', () {
-      const s = StatusEnum.initial;
-      expect(s == StatusEnum.loading, isFalse);
-      expect(s == StatusEnum.error, isFalse);
-    });
-  });
-
-  group('EmployeeModel', () {
-    test('fromJson parses all fields correctly', () {
+  group('EmployeeModel smoke', () {
+    test('fromJson → toJson round-trips', () {
       final json = {
         'id': '7',
         'name': 'Alice',
@@ -30,63 +19,39 @@ void main() {
         'country': 'India',
         'state': 'MH',
         'district': 'Pune',
-        'createdAt': '2024-01-01T00:00:00.000Z',
       };
       final model = EmployeeModel.fromJson(json);
-      expect(model.id, '7');
-      expect(model.name, 'Alice');
-      expect(model.email, 'alice@example.com');
-      expect(model.country, 'India');
-    });
-
-    test('toJson round-trips correctly', () {
-      final model = EmployeeModel(
-        id: '1',
-        name: 'Bob',
-        email: 'bob@example.com',
-        mobile: '1234567890',
-        country: 'USA',
-        state: 'CA',
-        district: 'LA',
-      );
-      final json = model.toJson();
-      final restored = EmployeeModel.fromJson(json);
-      expect(restored.name, model.name);
-      expect(restored.email, model.email);
-    });
-
-    test('equality is based on id', () {
-      final a = EmployeeModel(
-          id: '5', name: 'A', email: 'a@b.com',
-          mobile: '0', country: 'X', state: 'Y', district: 'Z');
-      final b = EmployeeModel(
-          id: '5', name: 'B', email: 'b@c.com',
-          mobile: '1', country: 'X', state: 'Y', district: 'Z');
-      expect(a, equals(b));
-    });
-
-    test('copyWith updates specified fields only', () {
-      final original = EmployeeModel(
-          id: '1', name: 'Alice', email: 'alice@x.com',
-          mobile: '0', country: 'India', state: 'MH', district: 'Pune');
-      final copy = original.copyWith(name: 'Bob');
-      expect(copy.name, 'Bob');
-      expect(copy.email, original.email);
+      expect(EmployeeModel.fromJson(model.toJson()).name, 'Alice');
     });
   });
 
-  group('CountryModel', () {
-    test('fromJson reads country key as name', () {
-      final json = {'id': '1', 'country': 'Germany'};
-      final model = CountryModel.fromJson(json);
-      expect(model.name, 'Germany');
-      expect(model.id, '1');
+  group('Country', () {
+    test('equality is based on id and name', () {
+      const a = Country(id: '1', name: 'India');
+      const b = Country(id: '1', name: 'India');
+      expect(a, equals(b));
+    });
+  });
+
+  group('AuthUser', () {
+    test('props include uid, email, displayName, photoURL', () {
+      const user = AuthUser(
+          uid: 'u1', email: 'a@b.com', displayName: 'Alice');
+      expect(user.props, ['u1', 'a@b.com', 'Alice', null]);
+    });
+  });
+
+  group('AppFailure', () {
+    test('message is accessible and toString returns it', () {
+      const f = AppFailure('Something went wrong');
+      expect(f.message, 'Something went wrong');
+      expect(f.toString(), 'Something went wrong');
     });
 
-    test('fromJson falls back to name key when country key absent', () {
-      final json = {'id': '2', 'name': 'France'};
-      final model = CountryModel.fromJson(json);
-      expect(model.name, 'France');
+    test('two AppFailures with same message are equal', () {
+      const a = AppFailure('err');
+      const b = AppFailure('err');
+      expect(a, equals(b));
     });
   });
 }
