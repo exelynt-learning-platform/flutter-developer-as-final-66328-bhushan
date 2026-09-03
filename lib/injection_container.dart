@@ -5,8 +5,10 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'core/errors/app_failure.dart';
 import 'core/network/dio_client.dart';
 import 'features/auth/data/repositories/firebase_auth_repository.dart';
+import 'features/auth/domain/entities/auth_user.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/auth/domain/usecases/auth_usecases.dart';
 import 'features/auth/presentation/bloc/auth_cubit.dart';
@@ -94,21 +96,21 @@ Future<void> configureDependencies() async {
 // ── Fallback when Firebase is not configured ──────────────────────────────────
 class _UnavailableAuthRepo implements AuthRepository {
   @override
-  Stream<dynamic> get authStateChanges => const Stream.empty();
+  Stream<AuthUser?> get authStateChanges => const Stream.empty();
   @override
-  dynamic get currentUser => null;
+  AuthUser? get currentUser => null;
   @override
-  Future<dynamic> signInWithEmail(_, __) =>
-      Future.error('Firebase not configured.');
+  Future<AuthUser> signInWithEmail(String _, String __) =>
+      Future.error(const AppFailure('Firebase not configured.'));
   @override
-  Future<dynamic> registerWithEmail(_, __, ___) =>
-      Future.error('Firebase not configured.');
+  Future<AuthUser> registerWithEmail(String _, String __, String ___) =>
+      Future.error(const AppFailure('Firebase not configured.'));
   @override
-  Future<dynamic> signInWithGoogle() =>
-      Future.error('Firebase not configured.');
+  Future<AuthUser?> signInWithGoogle() =>
+      Future.error(const AppFailure('Firebase not configured.'));
   @override
-  Future<void> sendPasswordResetEmail(_) =>
-      Future.error('Firebase not configured.');
+  Future<void> sendPasswordResetEmail(String _) =>
+      Future.error(const AppFailure('Firebase not configured.'));
   @override
   Future<void> signOut() async {}
 }

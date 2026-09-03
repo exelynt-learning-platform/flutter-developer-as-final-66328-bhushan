@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../features/employees/domain/entities/employee.dart';
 import '../../features/employees/presentation/bloc/employee_cubit.dart';
 import '../../features/employees/presentation/bloc/employee_state.dart';
 import '../helper/snackbar_helper.dart';

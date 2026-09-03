@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import '../constants/app_constants.dart';
+import '../errors/app_failure.dart';
 
 class DioClient {
   late final Dio dio;
